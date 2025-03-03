@@ -1,58 +1,66 @@
 <script setup>
 import { ref } from "vue";
 
-const menus = ref(["역삼동원룸", "천호동원룸", "봉천동원룸"]);
-const count = ref(0)
-const info = ref([{
-  id:'shgudqlsz',
-  name: '노형빈'
-}])
-const test = (props) => {
-  console.debug(props)
-  info.value.push({id:'ㅋㅋ', name:'이상경'})
-}
+const menus = ref(["Home", "Shop", "About"]);
+const rooms = ref(["역삼동원룸", "대치동원룸", "봉천동원룸"]);
+const count = ref(0);
+const modal = ref(false);
 </script>
 
 <template>
-  <div v-for="menu in menus" :key="menu">
-    <a>{{ menu }}</a>
-    <button @click="test('안녕녕')">허위매물신고</button><span>신고수 : {{count}}</span>
+  <div class="black-bg" v-if="modal == true">
+    <div class="white-bg">
+      <h4>상세페이지</h4>
+      <p>상세페이지 내용</p>
+      <button @click="modal = !modal">닫기</button>
+    </div>
   </div>
-  <div v-for="data in info" :key="data.id">
-    <p>
-      {{ data.id }}
-    </p>
-    <p>
-      {{ data.name }}
-    </p>
+
+  <div class="menu">
+    <a v-for="menu in menus" :key="menu">{{ menu }}</a>
+  </div>
+
+  <div v-for="(room, idx) in rooms" :key="room" class="room-img">
+    <div @click="modal = !modal">
+      <img src="./assets/room0.jpg" alt="Room Image" />
+      <h4>{{ room }}</h4>
+    </div>
+    <button @click="count++">허위매물신고</button>
+    <span>신고수 : {{ count }}</span>
   </div>
 </template>
 
 <style scoped>
-/* header {
-  line-height: 1.5;
+.menu {
+  background-color: darkcyan;
+  padding: 15px;
+  border-radius: 15px;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.menu a {
+  color: white;
+  padding: 10px;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-} */
+.room-img {
+  width: 100%;
+  margin-top: 40px;
+}
+body {
+  margin: 0;
+}
+div {
+  box-sizing: border-box;
+}
+.black-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  padding: 20px;
+}
+.white-bg {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
 </style>
