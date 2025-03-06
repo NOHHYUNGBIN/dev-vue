@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import data from "./assets/roomData";
 
 const menus = ref(["Home", "Shop", "About"]);
-const rooms = ref(["역삼동원룸", "대치동원룸", "봉천동원룸"]);
+const rooms = ref(data);
 const count = ref(0);
 const modal = ref(false);
 </script>
@@ -20,13 +21,12 @@ const modal = ref(false);
     <a v-for="menu in menus" :key="menu">{{ menu }}</a>
   </div>
 
-  <div v-for="(room, idx) in rooms" :key="room" class="room-img">
-    <div @click="modal = !modal">
-      <img src="./assets/room0.jpg" alt="Room Image" />
-      <h4>{{ room }}</h4>
+  <div v-for="room in rooms" :key="room" class="room-img">
+    <div>
+      <img :src="room.image" @click="modal = !modal" alt="Room Image" />
+      <h4>{{ room.title }}</h4>
+      <p>{{ room.price }}원</p>
     </div>
-    <button @click="count++">허위매물신고</button>
-    <span>신고수 : {{ count }}</span>
   </div>
 </template>
 
