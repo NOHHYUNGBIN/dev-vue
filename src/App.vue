@@ -1,17 +1,24 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import data from "./assets/roomData";
 
 const menus = ref(["Home", "Shop", "About"]);
 const rooms = ref(data);
-const count = ref(0);
 const modal = ref(false);
+
+const selected = ref(0);
+
+console.debug("selected", selected.value);
+watch(selected, (newVal, oldVal) => {
+  console.debug("newVal", newVal, "oldVal", oldVal);
+  console.debug(newVal);
+});
 </script>
 
 <template>
   <div class="black-bg" v-if="modal == true">
     <div class="white-bg">
-      <h4>상세페이지</h4>
+      <h4>{{ rooms[selected].title }}</h4>
       <p>상세페이지 내용</p>
       <button @click="modal = !modal">닫기</button>
     </div>
@@ -21,9 +28,17 @@ const modal = ref(false);
     <a v-for="menu in menus" :key="menu">{{ menu }}</a>
   </div>
 
-  <div v-for="room in rooms" :key="room" class="room-img">
+  <div v-for="(room, i) in rooms" :key="room">
     <div>
-      <img :src="room.image" @click="modal = !modal" alt="Room Image" />
+      <img
+        :src="room.image"
+        @click="
+          modal = !modal;
+          selected = i;
+        "
+        alt="Room Image"
+        class="room-img"
+      />
       <h4>{{ room.title }}</h4>
       <p>{{ room.price }}원</p>
     </div>
@@ -41,8 +56,9 @@ const modal = ref(false);
   padding: 10px;
 }
 .room-img {
-  width: 100%;
+  width: 50%;
   margin-top: 40px;
+  display: block;
 }
 body {
   margin: 0;
