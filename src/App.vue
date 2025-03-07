@@ -24,7 +24,7 @@ const selected = ref(0);
     <a v-for="menu in menus" :key="menu">{{ menu }}</a>
   </div>
 
-  <Discount />
+  <Discount :menus="menus" />
 
   <div v-for="(room, i) in rooms" :key="room">
     <div>

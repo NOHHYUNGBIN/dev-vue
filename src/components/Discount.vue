@@ -4,9 +4,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Discount",
-};
+<script setup>
+import { defineProps } from "vue";
+const props = defineProps({
+  menus: Array,
+});
+console.debug("props", props);
 </script>
 <style></style>
