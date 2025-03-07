@@ -1,25 +1,21 @@
 <script setup>
 import { ref, watch } from "vue";
 import data from "./assets/roomData";
+import Discount from "./components/Discount.vue";
 
 const menus = ref(["Home", "Shop", "About"]);
 const rooms = ref(data);
 const modal = ref(false);
-
 const selected = ref(0);
-
-console.debug("selected", selected.value);
-watch(selected, (newVal, oldVal) => {
-  console.debug("newVal", newVal, "oldVal", oldVal);
-  console.debug(newVal);
-});
 </script>
 
 <template>
   <div class="black-bg" v-if="modal == true">
     <div class="white-bg">
+      <img :src="rooms[selected].image" alt="Room Image" style="width: 100%" />
       <h4>{{ rooms[selected].title }}</h4>
-      <p>상세페이지 내용</p>
+      <p>{{ rooms[selected].content }}</p>
+      <p>{{ rooms[selected].price }}</p>
       <button @click="modal = !modal">닫기</button>
     </div>
   </div>
@@ -27,6 +23,8 @@ watch(selected, (newVal, oldVal) => {
   <div class="menu">
     <a v-for="menu in menus" :key="menu">{{ menu }}</a>
   </div>
+
+  <Discount />
 
   <div v-for="(room, i) in rooms" :key="room">
     <div>
@@ -46,6 +44,12 @@ watch(selected, (newVal, oldVal) => {
 </template>
 
 <style scoped>
+.discount {
+  background-color: #eee;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
 .menu {
   background-color: darkcyan;
   padding: 15px;
