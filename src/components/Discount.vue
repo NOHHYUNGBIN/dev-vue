@@ -5,14 +5,10 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted } from "vue";
+import { defineProps } from "vue";
 
 const props = defineProps({
   menus: Array,
-});
-
-onMounted(() => {
-  console.debug("props", props.menus);
 });
 </script>
 
