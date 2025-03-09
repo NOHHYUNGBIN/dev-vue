@@ -4,15 +4,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Discount",
-  props: {
-    menus: Array,
-  },
-  mounted() {
-    console.debug("props", this.menus);
-  },
-};
+<script setup>
+import { defineProps, onMounted } from "vue";
+
+const props = defineProps({
+  menus: Array,
+});
+
+onMounted(() => {
+  console.debug("props", props.menus);
+});
 </script>
+
 <style></style>

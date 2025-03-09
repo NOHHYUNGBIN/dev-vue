@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import data from "./assets/roomData";
 import Discount from "./components/Discount.vue";
+import Card from "./components/Card.vue";
 
 const menus = ref(["Home", "Shop", "About"]);
 const rooms = ref(data);
@@ -25,8 +26,9 @@ const selected = ref(0);
   </div>
 
   <Discount :menus="menus" />
+  <Card v-for="room in rooms" :key="room.id" :room="room" />
 
-  <div v-for="(room, i) in rooms" :key="room">
+  <!-- <div v-for="(room, i) in rooms" :key="room">
     <div>
       <img
         :src="room.image"
@@ -40,7 +42,7 @@ const selected = ref(0);
       <h4>{{ room.title }}</h4>
       <p>{{ room.price }}원</p>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>
