@@ -6,6 +6,7 @@ import Card from "./components/Card.vue";
 import Modal from "./components/Modal.vue";
 
 const menus = ref(["Home", "Shop", "About"]);
+const originRooms = ref([...data]);
 const rooms = ref(data);
 const modal = ref(false);
 const selectedRoom = ref({});
@@ -13,6 +14,13 @@ const selectedRoom = ref({});
 const openModalHandler = (data) => {
   selectedRoom.value = data?.room;
   modal.value = data.isOpen;
+};
+const priceSort = () => {
+  rooms.value.sort((a, b) => a.price - b.price);
+};
+const backSort = () => {
+  console.debug("originRooms.value", originRooms.value);
+  rooms.value = [...originRooms.value];
 };
 </script>
 
@@ -24,6 +32,9 @@ const openModalHandler = (data) => {
   <Modal :room="selectedRoom" :modal="modal" @update:modal="openModalHandler" />
 
   <Discount :menus="menus" />
+
+  <button @click="priceSort">가격순 정렬</button>
+  <button @click="backSort">되돌리기</button>
 
   <Card
     v-for="(room, i) in rooms"

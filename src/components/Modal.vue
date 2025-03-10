@@ -54,24 +54,6 @@ const debouncedValidateMonth = (e) => {
     validateMonth(e); // 500ms 후 실행
   }, 500);
 };
-watch(month, (newVal) => {
-  console.debug("newValnewVal", newVal);
-});
-// watch(month, (newVal, oldVal) => {
-//   clearTimeout(debounce);
-//   debounce = setTimeout(() => {
-//     if (isNaN(newVal)) {
-//       alert("숫자만 입력 가능합니다.");
-//       month.value = 1;
-//       return;
-//     }
-//     if (newVal > 24 || newVal < 1) {
-//       alert("1개월이상 24개월 이하만 입력 가능합니다.");
-//       month.value = 1;
-//       return;
-//     }
-//   }, 500);
-// });
 </script>
 
 <style>
