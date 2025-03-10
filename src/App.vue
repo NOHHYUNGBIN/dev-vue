@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import data from "./assets/roomData";
 import Discount from "./components/Discount.vue";
 import Card from "./components/Card.vue";
@@ -10,6 +10,7 @@ const originRooms = ref([...data]);
 const rooms = ref(data);
 const modal = ref(false);
 const selectedRoom = ref({});
+const showDisCount = ref(true);
 
 const openModalHandler = (data) => {
   selectedRoom.value = data?.room;
@@ -19,9 +20,13 @@ const priceSort = () => {
   rooms.value.sort((a, b) => a.price - b.price);
 };
 const backSort = () => {
-  console.debug("originRooms.value", originRooms.value);
   rooms.value = [...originRooms.value];
 };
+onMounted(() => {
+  setTimeout(() => {
+    showDisCount.value = false;
+  }, 3000);
+});
 </script>
 
 <template>
@@ -31,7 +36,7 @@ const backSort = () => {
 
   <Modal :room="selectedRoom" :modal="modal" @update:modal="openModalHandler" />
 
-  <Discount :menus="menus" />
+  <Discount :menus="menus" v-if="showDisCount" />
 
   <button @click="priceSort">가격순 정렬</button>
   <button @click="backSort">되돌리기</button>
